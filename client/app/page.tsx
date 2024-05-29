@@ -10,9 +10,15 @@ export default function Home() {
     password: "romanojha123",
   });
 
-  useEffect(() => {
-    apiRoute.authRouter.loginUser(input);
-  }, []);
-
-  return <main></main>;
+  return (
+    <main>
+      <button
+        onClick={() => {
+          apiRoute.authRouter.loginUser(input);
+        }}
+      >
+        Login
+      </button>
+    </main>
+  );
 }

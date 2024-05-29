@@ -1,0 +1,26 @@
+*) Method 1 to securely send password:
+    -> Hash the data to client side and send to server side
+    -> And then compare the hash value with the database hash value
+    
+*) Method 2 to securely send important data:
+    -> Encrypt the data using public key in client side and then decrypt the data using private key in server side
+    
+*) Method 3 to verify the message integrity:
+    -> client side:
+        data = {}
+        hashData = hash(data)
+        signedMessage = encryptWithPublicKey(PRIVATE_KEY, hashData)
+        packageToSend = {
+            algorithm: "sha256",
+            originalData: data,
+            signedAndEncryptedData: signedMessage,
+        }
+        
+    -> server side verify identity:
+        decryptHashMessage = decryptWithPrivateKey(packageToSend.signedAndEncryptedData)
+        hashOfOriginalData = hash(packageToSend.originalData)
+        if(decryptHashMessage === hashOfOriginalData){
+            // successfully send data from client to server
+        }else{
+            throw Error("Something went wrong please try again later")
+        }
